@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>跳转页</title>
+</head>
+<body>
+    <h1><%= msg %>,正在跳转...</h1>
+    <% if(flag) {%>
+       <a id="link" href="http://localhost:3333/show/<%= flag %>"></a>
+    <% }else{%>
+        <a id="link" href="http://localhost:3333"></a>
+    <%} %>
+</body>
+<script> 
+    var  link=document.getElementById('link').href
+    setTimeout(function(){
+        window.location.href= link
+    },800)
+</script>
+</html>

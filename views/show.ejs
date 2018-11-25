@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%= dirname%>
+    </title>
+    <style>
+        img{
+            /* width:200px; */
+            height:200px;
+        }
+        body>a{
+            margin: 10px;
+            display: block;
+            font:24px/30px "微软雅黑"
+
+        }
+        body>div{
+            padding:10px;
+            margin: 10px 0; 
+        }
+        span{
+            font:20px/26px "微软雅黑"
+        }
+        form{
+            display: inline-block
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+</head>
+
+<body>
+    <a href="http://localhost:3333">返回相册列表</a>
+
+    <div>
+    <span id="add">添加图片:</span>
+    <form id="form" action="http://localhost:3333/newphoto/<%= dirname %>" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required accept="image/*">
+        <input type="submit">
+    </form>
+    </div>
+    <!-- colors:["red","blue","gold"] -->
+    <%  if(photoname.length>0) { %>
+    <table>
+        <%  for(var i=0;i<photoname.length;i++) { %>
+        <tr>
+            <td><a href="http://localhost:3333/photodata/<%= dirname %>/<%= photoname[i]%>"> <img src="http://localhost:3333/photodata/<%= dirname %>/<%= photoname[i]%>"></a> </td>
+            <td> <a href="http://localhost:3333/photodel/<%= dirname%>/<%= photoname[i]%>"">删除</a> </td>    
+                </tr>
+            <%  } %> </table>
+        <%  }else{%> <h3>该相册目前没有图片!</h3>   <%} %>
+     
+</body>
+
+</html>

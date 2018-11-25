@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		<%= dirname%>
+	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="static/css/swiper-3.4.2.min.css">
+	<link rel="stylesheet" href="static/css/show2.css">
+</head>
+<body>
+	<a href="http://localhost:3333">返回相册列表</a>
+	<h4>
+		<%= dirname%>
+	</h4>
+	<div id='fbox'>
+		<span id="add">添加图片:</span>
+		<form id="form" action="http://localhost:3333/newphoto/<%= dirname %>" method="post" enctype="multipart/form-data">
+			<input type="file" name="file" required accept="image/*">
+			<input type="submit">
+		</form>
+	</div>
+	<div class="pc-slide">
+		<div class="view">
+			<div class="swiper-container">
+				<a class="arrow-left" href="#"></a>
+				<a class="arrow-right" href="#"></a>
+				<div class="swiper-wrapper">
+					<%  if(photoname.length>0) { %>
+					<% for(var i=0;i<photoname.length;i++) { %>
+					<div class="swiper-slide">
+						<a href="http://localhost:3333/photodata/<%= dirname %>/<%= photoname[i]%>" target="_blank"><img src="http://localhost:3333/photodata/<%= dirname %>/<%= photoname[i]%>"
+							 alt=""></a>
+						<span class="del" link="http://localhost:3333/photodel/<%= dirname%>/<%= photoname[i]%>" title="删除">X</span>
+					</div>
+					<% } %>
+					<% }else{ %>
+					<h3>该相册目前没有图片!</h3>
+					<%} %>
+				</div>
+			</div>
+		</div>
+		<div class="preview">
+			<a class="arrow-left" href="#"></a>
+			<a class="arrow-right" href="#"></a>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<%  if(photoname.length>0) { %>
+					<div class="swiper-slide active-nav">
+						<img src="http://localhost:3333/photodata/<%= dirname %>/<%= photoname[0]%>" alt="">
+					</div>
+					<% for(var i=1;i<photoname.length;i++) { %>
+					<div class="swiper-slide ">
+						<img src="http://localhost:3333/photodata/<%= dirname %>/<%= photoname[i]%>" alt="">
+					</div>
+					<%  } %>
+					<%  } %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="static/js/jquery-3.2.1.min.js"></script>
+	<script src="static/js/swiper-3.4.2.jquery.min.js"></script>
+	<script src="static/js/show2.js"></script>
+</body>
+</html>

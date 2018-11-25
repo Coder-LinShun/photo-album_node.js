@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <style>
+        table{margin:0 auto;}
+        th{
+            width:200px;
+            height:50px;
+            font:bold 30px/50px "微软雅黑"
+        }
+        tr td:first-of-type a{
+            display: inline-block;
+            /* width:100px; */
+            height:50px;
+            font:30px/50px "微软雅黑"
+        }
+        #form1{
+            display: none
+        }
+        #form2{
+            display: none
+        }
+        #formBtn{ 
+            width: 300px;
+            margin:20px auto 15px;
+            text-align: center
+           
+        }
+        #formBtn span{
+            display: inline-block;
+            height:24px;
+            margin:0 10px;
+            font:20px/24px "微软雅黑";
+            border:1px solid black;
+            cursor:pointer
+        }
+        #formBox{
+            width:200px;
+            margin: 10px auto;
+            text-align: left;
+        }
+        input{
+            margin: 10px 0;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+</head>
+<body>
+    <table >
+        <!-- colors:["red","blue","gold"] -->
+        <%  if(dirname) { %>
+            <tr><th>相册列表</th></tr>
+            <%  for(var i=0;i<dirname.length;i++) { %>
+                <tr>
+                    <td> <%= (i+1) %>. <a href="http://localhost:3333/show/<%= dirname[i]%>"> <%= dirname[i]%></a></td>
+                    <td><a class="del" href="http://localhost:3333/deldir/<%= dirname[i]%>">删除</a></td>
+                </tr>
+            <%  } %>
+        <%  } %>
+    </table>
+    <div id="formBtn"><span> 添加相册</span> <span>上传照片</span> </div>
+    <div id="formBox">
+    <form id="form1" action="http://localhost:3333/newdir" method="post">
+        相册名:<input type="text" name="dirname" required>
+        <input type="submit">
+    </form>
+    <form id="form2" action="http://localhost:3333/newphoto/NEW" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required accept="image/*"><br>
+        选择相册: 
+        <%  if(dirname) { %>  <select name="dirname" >          
+            <%  for(var i=0;i<dirname.length;i++) { %>
+                 <option value="<%= dirname[i]%>"><%= dirname[i]%></option>
+            <%  } %>   </select><br>             
+        <%  }else{ %> <span>目前没有相册,请先添加相册!</span> <% }  %>         <input type="submit">
+    </form>
+</div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    var ary=[]
+    $('select option').each(function(){
+        ary.push(this.value)
+    })
+    console.log(ary)
+    
+     console.log($('select').val())
+   
+    $('select').click(function(){
+        console.log(this.value)
+    })
+    $('#formBtn span').click(function(){
+        console.log($(this).index())
+        $('form').eq($(this).index()).show().siblings().hide()
+    })
+    $('input[type=submit]').first().click(function(){
+        for(var i=0;i<ary.length;i++){
+            if($(this).prev().val()==ary[i]){
+                alert($(this).prev().val()+'\t相册已存在!');
+                return false;
+            }
+        }       
+    })
+    $(".del").click(function(){
+        var res=confirm('确定删除该相册?')
+        if(!res){
+            return false
+        }
+    })
+
+</script>
+</html>
